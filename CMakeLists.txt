@@ -4,7 +4,7 @@ project(
   VERSION 1.1.0
   LANGUAGES CXX)
 
-set(SOURCES src/main.cpp src/Canvas.cpp)
+set(SOURCES src/main.cpp src/Canvas.cpp src/Cell.cpp src/Maze.cpp)
 add_executable(maze-generator ${SOURCES})
 target_include_directories(maze-generator
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
