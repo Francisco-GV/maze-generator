@@ -23,3 +23,8 @@ bool Cell::wasAlreadyVisited()
 {
     return visited;
 }
+
+bool Cell::getWall(int index)
+{
+    return walls[index];
+}
