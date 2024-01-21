@@ -13,6 +13,7 @@ Canvas::Canvas() : window(sf::VideoMode(500, 500), "Maze",
 
 void Canvas::start()
 {
+    maze.calculate();
     while (window.isOpen())
     {
         update();
@@ -33,16 +34,17 @@ void Canvas::draw()
     int hstep = size.x / maze.getWidth();
     int vstep = size.y / maze.getHeight();
 
-    auto cells = maze.getCells();
+    std::vector<std::vector<std::shared_ptr<Cell>>> cells = maze.getCells();
+
     for (int i = 0; i < cells.size(); i++)
     {
         for (int n = 0; n < cells[i].size(); n++)
         {
-            Cell cell = cells[i][n];
+            std::shared_ptr<Cell> cell = cells[i][n];
             int y = i * vstep;
             int x = n * hstep;
-
-            if (cell.getWall(Wall::LEFT))
+           
+            if (cell->getWall(Wall::LEFT))
             {
                 sf::Vertex points[]
                 {
@@ -52,7 +54,7 @@ void Canvas::draw()
                 window.draw(points, 2, sf::Lines);
             }
 
-            if (cell.getWall(Wall::RIGHT))
+            if (cell->getWall(Wall::RIGHT))
             {
                 sf::Vertex points[]
                 {
@@ -62,7 +64,7 @@ void Canvas::draw()
                 window.draw(points, 2, sf::Lines);
             }
 
-            if (cell.getWall(Wall::UP))
+            if (cell->getWall(Wall::UP))
             {
                 sf::Vertex points[]
                 {
@@ -72,7 +74,7 @@ void Canvas::draw()
                 window.draw(points, 2, sf::Lines);
             }
 
-            if (cell.getWall(Wall::DOWN))
+            if (cell->getWall(Wall::DOWN))
             {
                 sf::Vertex points[]
                 {
