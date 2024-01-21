@@ -24,9 +24,7 @@ std::vector<std::vector<std::shared_ptr<Cell>>>& Maze::getCells()
 void Maze::calculate()
 {
     int first = random(0, width - 1);
-    setWall(0, first, Wall::UP, false);
-    
-    // The maze will start in the top
+    // The maze will start at the top
     recursiveBacktracker(0, first);
 }
 
@@ -35,8 +33,8 @@ void Maze::recursiveBacktracker(int y, int x)
     std::shared_ptr<Cell> cell = cells[y][x];
     cell->setVisited();
     
-    std::vector<int> neighbors = getUnvisitedNeighbors(y, x);
-    if (neighbors.size() > 0)
+    std::vector<int> neighbors; 
+    while ((neighbors = getUnvisitedNeighbors(y, x)).size() > 0)
     {
         int neighbor = randomInRange(neighbors);
         
@@ -58,8 +56,6 @@ void Maze::recursiveBacktracker(int y, int x)
                 break;
         }
     }
-
-    stackCells.push(cell);
 }
 
 void Maze::setWall(int y, int x, int wall, bool set)

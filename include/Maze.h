@@ -2,7 +2,6 @@
 #define MAZE_H
 
 #include <vector>
-#include <stack>
 #include <memory>
 #include "Cell.h"
 
@@ -22,7 +21,6 @@ private:
     int width;
     int height;
     std::vector<std::vector<std::shared_ptr<Cell>>> cells;
-    std::stack<std::shared_ptr<Cell>> stackCells;
 };
 
 #endif
