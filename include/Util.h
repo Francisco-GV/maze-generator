@@ -10,5 +10,6 @@ inline int random(int lower, int upper)
 }
 
 int randomInRange(std::vector<int> values);
+bool isNumber(char* text, long* value);
 
 #endif

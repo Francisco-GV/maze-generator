@@ -4,9 +4,9 @@
 #include "Cell.h"
 
 // TODO: Change hardcoded values
-Canvas::Canvas() : window(sf::VideoMode(500, 500), "Maze",
+Canvas::Canvas(int width, int height, Maze& maze) : window(sf::VideoMode(width, height), "Maze",
                           sf::Style::Titlebar | sf::Style::Close),
-                    maze(20, 20)
+                    maze(maze)
 {
     window.setFramerateLimit(60);
 }

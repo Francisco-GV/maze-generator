@@ -7,7 +7,7 @@
 class Canvas
 {
 public:
-    Canvas();
+    Canvas(int width, int height, Maze& maze);
     void start();
     void draw();
     void update();
