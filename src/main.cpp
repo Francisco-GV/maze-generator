@@ -17,14 +17,17 @@ void getArgs(int argc, char* argv[])
     {
         long value = -1;
         isNumber(optarg, &value);
-
-        switch (character)
+        
+        if (value != -1)
         {
-            case 'c': columns = (int) value; break;
-            case 'r': rows    = (int) value; break;
-            case 'w': width   = (int) value; break;
-            case 'h': height  = (int) value; break;
-            case 's': seed    = value; break;
+            switch (character)
+            {
+                case 'c': columns = (int) value; break;
+                case 'r': rows    = (int) value; break;
+                case 'w': width   = (int) value; break;
+                case 'h': height  = (int) value; break;
+                case 's': seed    = value; break;
+            }
         }
     }
 }
