@@ -9,9 +9,10 @@ class Canvas
 public:
     Canvas(int width, int height, Maze& maze);
     void start();
+private:
     void draw();
     void update();
-private:
+    void manageEvents();
     sf::RenderWindow window;
     Maze maze;
 };

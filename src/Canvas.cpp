@@ -23,6 +23,7 @@ void Canvas::start()
 
 void Canvas::update()
 {
+    manageEvents();
 }
 
 void Canvas::draw()
@@ -87,4 +88,22 @@ void Canvas::draw()
     }
 
     window.display();
+}
+
+void Canvas::manageEvents()
+{
+    sf::Event event;
+
+    while(window.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                window.close();
+                break;
+            default:
+                // ¯\_(ツ)_/¯
+                break;
+        }
+    }
 }
