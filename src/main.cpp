@@ -8,7 +8,7 @@ int columns = 50;
 int rows = 50;
 int width = 500;
 int height = 500;
-long seed = -1;
+time_t seed = -1;
 
 void getArgs(int argc, char* argv[])
 {

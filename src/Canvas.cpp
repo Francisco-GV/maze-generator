@@ -8,7 +8,7 @@ Canvas::Canvas(int width, int height, Maze& maze) : window(sf::VideoMode(width, 
                           sf::Style::Titlebar | sf::Style::Close),
                     maze(maze)
 {
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(20);
 }
 
 void Canvas::start()
