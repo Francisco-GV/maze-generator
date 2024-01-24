@@ -9,7 +9,7 @@
 class Maze
 {
 public:
-    Maze(int width, int height);
+    Maze(int width, int height, unsigned int seed);
     void calculate(std::function<void()> callback);
     std::vector<std::vector<std::shared_ptr<Cell>>>& getCells();
     std::vector<int> getUnvisitedNeighbors(int y, int x);
@@ -21,6 +21,7 @@ private:
     void setWall(int y, int x, int wall, bool set);
     int width;
     int height;
+    unsigned int seed;
     std::vector<std::vector<std::shared_ptr<Cell>>> cells;
 };
 

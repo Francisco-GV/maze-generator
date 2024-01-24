@@ -2,13 +2,13 @@
 #include <cstdlib>
 #include <cstdio>
 #include "Canvas.h"
-#include <Util.h>
+#include "Util.h"
 
 int columns = 50;
 int rows = 50;
 int width = 500;
 int height = 500;
-time_t seed = -1;
+unsigned int seed = 0;
 bool animate = false;
 int fps = 20;
 
@@ -39,19 +39,20 @@ void getArgs(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
     getArgs(argc, argv);
-    
-    if (seed == -1)
+
+    if (seed == 0)
     {
-        srand(time(&seed));
+        // Potential data loss doesn't matter
+        seed = (unsigned int) time(NULL);
     }
-    
+
     printf("==== Maze Generator ====\n");
     printf("size: %dx%d\n", columns, rows);
     printf("window size: %dx%d\n", width, height);
     printf("seed: %ld\n", seed);
     printf("\nGenerating...\n");
 
-    Maze maze(columns, rows);
+    Maze maze(columns, rows, seed);
     Canvas canvas(width, height, maze, animate, fps);
 
     canvas.start();

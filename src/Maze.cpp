@@ -1,7 +1,6 @@
 #include "Maze.h"
 #include "Util.h"
-
-Maze::Maze(int width, int height) : width(width), height(height)
+Maze::Maze(int width, int height, unsigned int seed) : width(width), height(height), seed(seed)
 {
     for (int i = 0; i < height; i++)
     {
@@ -22,6 +21,11 @@ std::vector<std::vector<std::shared_ptr<Cell>>>& Maze::getCells()
 
 void Maze::calculate(std::function<void()> callback)
 {
+    // I suspect that some SFML component (for some reason) modifies 
+    // the seed during its init (must check it)
+    // So better set the seed just before starting the algorithm
+    srand(seed);
+
     int first = random(0, width - 1);
     // The maze will start at the top
     recursiveBacktracker(0, first, callback);
