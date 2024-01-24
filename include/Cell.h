@@ -7,10 +7,13 @@ public:
     Cell();
     void setWall(int index, bool visible);
     void setVisited();
+    void setSurrounded();
     bool wasAlreadyVisited();
+    bool isSurrounded();
     bool getWall(int index);
 private:
     bool visited;
+    bool surrounded;
     bool walls[4];
 };
 

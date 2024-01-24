@@ -9,24 +9,28 @@ int rows = 50;
 int width = 500;
 int height = 500;
 time_t seed = -1;
+bool animate = false;
+int fps = 20;
 
 void getArgs(int argc, char* argv[])
 {
     int character;
-    while ((character = getopt(argc, argv, "c:r:w:h:s:")) != -1)
+    while ((character = getopt(argc, argv, "c:r:w:h:s:af:")) != -1)
     {
         long value = -1;
         isNumber(optarg, &value);
         
-        if (value != -1)
+        if (value != -1 || character == 'a')
         {
             switch (character)
             {
+                case 'a': animate = true; break;
                 case 'c': columns = (int) value; break;
                 case 'r': rows    = (int) value; break;
                 case 'w': width   = (int) value; break;
                 case 'h': height  = (int) value; break;
                 case 's': seed    = value; break;
+                case 'f': fps  = (int) value; break;
             }
         }
     }
@@ -48,7 +52,7 @@ int main(int argc, char* argv[])
     printf("\nGenerating...\n");
 
     Maze maze(columns, rows);
-    Canvas canvas(width, height, maze);
+    Canvas canvas(width, height, maze, animate, fps);
 
     canvas.start();
     return 0;

@@ -1,4 +1,3 @@
-#include <stack>
 #include "Maze.h"
 #include "Util.h"
 
@@ -21,17 +20,22 @@ std::vector<std::vector<std::shared_ptr<Cell>>>& Maze::getCells()
     return cells;
 }
 
-void Maze::calculate()
+void Maze::calculate(std::function<void()> callback)
 {
     int first = random(0, width - 1);
     // The maze will start at the top
-    recursiveBacktracker(0, first);
+    recursiveBacktracker(0, first, callback);
 }
 
-void Maze::recursiveBacktracker(int y, int x)
+void Maze::recursiveBacktracker(int y, int x, std::function<void()> callback)
 {
     std::shared_ptr<Cell> cell = cells[y][x];
+    
     cell->setVisited();
+    if (callback != nullptr)
+    {
+        callback();
+    }
     
     std::vector<int> neighbors; 
     while ((neighbors = getUnvisitedNeighbors(y, x)).size() > 0)
@@ -43,18 +47,25 @@ void Maze::recursiveBacktracker(int y, int x)
         switch (neighbor)
         {
             case Wall::LEFT:
-                recursiveBacktracker(y, x - 1);
+                recursiveBacktracker(y, x - 1, callback);
                 break;
             case Wall::RIGHT:
-                recursiveBacktracker(y, x + 1);
+                recursiveBacktracker(y, x + 1, callback);
                 break;
             case Wall::UP:
-                recursiveBacktracker(y - 1, x);
+                recursiveBacktracker(y - 1, x, callback);
                 break;
             case Wall::DOWN:
-                recursiveBacktracker(y + 1, x);
+                recursiveBacktracker(y + 1, x, callback);
                 break;
         }
+    }
+    // Must be called twice, when visited and when surrounded
+    // TODO: fix cells set as surrounded when they are not
+    cell->setSurrounded();
+    if (callback != nullptr)
+    {
+        callback();
     }
 }
 

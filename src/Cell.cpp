@@ -24,6 +24,16 @@ bool Cell::wasAlreadyVisited()
     return visited;
 }
 
+void Cell::setSurrounded()
+{
+    surrounded = true;
+}
+
+bool Cell::isSurrounded()
+{
+    return surrounded;
+}
+
 bool Cell::getWall(int index)
 {
     return walls[index];
