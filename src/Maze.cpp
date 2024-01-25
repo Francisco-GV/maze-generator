@@ -65,7 +65,6 @@ void Maze::recursiveBacktracker(int y, int x, std::function<void()> callback)
                 break;
         }
     }
-    // TODO: fix cells set as surrounded when they are not
     cell->setSurrounded();
 
     // All this has to be executed twice, when visited and when surrounded

@@ -13,7 +13,7 @@ public:
     bool getWall(int index);
 private:
     bool visited;
-    bool surrounded;
+    bool surrounded = false;
     bool walls[4];
 };
 
