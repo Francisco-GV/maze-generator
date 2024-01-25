@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "Canvas.h"
 #include "Maze.h"
 #include "Cell.h"
@@ -8,6 +9,8 @@ Canvas::Canvas(int width, int height, Maze& maze, bool animate, unsigned int fps
                           sf::Style::Titlebar | sf::Style::Close), animate(animate), maze(maze)
 {
     window.setFramerateLimit(fps);
+
+    window.setTitle("Maze - Seed: " + std::to_string(maze.getSeed()));
 }
 
 void Canvas::start()
@@ -39,6 +42,16 @@ void Canvas::start()
 
 void Canvas::update()
 {
+    if (animate)
+    {
+        // total cells multiplied by 2 to consider both visited cells and surrounded cells 
+        // so as not to "stuck" the percentage
+        int percentage = (int)(maze.getVisitedCells() * 100.f / ((maze.getWidth() * maze.getHeight()) * 2));
+        std::string title = "Maze - Seed: " + std::to_string(maze.getSeed()) + 
+            " - " + std::to_string(percentage) + "%"; 
+        window.setTitle(title);
+    }
+
     manageEvents();
 }
 
@@ -66,7 +79,7 @@ void Canvas::draw()
                 sf::RectangleShape rectangle(sf::Vector2f(hstep, vstep));
                 rectangle.setPosition(x, y);
                 rectangle.setFillColor((animate && cell->isSurrounded()) ? sf::Color(63, 63, 255, 255) : sf::Color::White);
-
+                
                 window.draw(rectangle);
             
                 if (cell->getWall(Wall::LEFT))

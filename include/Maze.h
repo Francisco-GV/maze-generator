@@ -16,12 +16,15 @@ public:
 
     int getWidth();
     int getHeight();
+    int getSeed();
+    int getVisitedCells();
 private:
     void recursiveBacktracker(int y, int x, std::function<void()> callback);
     void setWall(int y, int x, int wall, bool set);
     int width;
     int height;
     unsigned int seed;
+    int visitedCells;
     std::vector<std::vector<std::shared_ptr<Cell>>> cells;
 };
 

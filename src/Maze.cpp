@@ -36,6 +36,7 @@ void Maze::recursiveBacktracker(int y, int x, std::function<void()> callback)
     std::shared_ptr<Cell> cell = cells[y][x];
     
     cell->setVisited();
+    visitedCells++;
     if (callback != nullptr)
     {
         callback();
@@ -64,9 +65,12 @@ void Maze::recursiveBacktracker(int y, int x, std::function<void()> callback)
                 break;
         }
     }
-    // Must be called twice, when visited and when surrounded
     // TODO: fix cells set as surrounded when they are not
     cell->setSurrounded();
+
+    // All this has to be executed twice, when visited and when surrounded
+    // to visualize the backtracking and update properly the percentage
+    visitedCells++;
     if (callback != nullptr)
     {
         callback();
@@ -114,6 +118,16 @@ int Maze::getWidth()
 int Maze::getHeight()
 {
     return height;
+}
+
+int Maze::getSeed()
+{
+    return seed;
+}
+
+int Maze::getVisitedCells()
+{
+    return visitedCells;
 }
 
 std::vector<int> Maze::getUnvisitedNeighbors(int y, int x)
