@@ -5,8 +5,8 @@
 #include "Cell.h"
 
 // TODO: Change hardcoded values
-Canvas::Canvas(int width, int height, Maze& maze, bool animate, unsigned int fps) : window(sf::VideoMode(width, height), "Maze",
-                          sf::Style::Titlebar | sf::Style::Close), animate(animate), maze(maze)
+Canvas::Canvas(int width, int height, Maze& maze, int padding, bool animate, unsigned int fps) : window(sf::VideoMode(width, height), "Maze",
+                          sf::Style::Titlebar | sf::Style::Close), animate(animate), maze(maze), padding(padding)
 {
     window.setFramerateLimit(fps);
 
@@ -61,11 +61,12 @@ void Canvas::draw()
     
     sf::Vector2f size{window.getSize()};
 
-    int hstep = size.x / maze.getWidth();
-    int vstep = size.y / maze.getHeight();
+    int hstep = (size.x - padding) / maze.getWidth();
+    int vstep = (size.y - padding) / maze.getHeight();
 
     std::vector<std::vector<std::shared_ptr<Cell>>> cells = maze.getCells();
 
+    // Draw the cells first so that they don't paint over the padding border in certain corners
     for (int i = 0; i < cells.size(); i++)
     {
         for (int n = 0; n < cells[i].size(); n++)
@@ -81,48 +82,81 @@ void Canvas::draw()
                 rectangle.setFillColor((animate && cell->isSurrounded()) ? sf::Color(63, 63, 255, 255) : sf::Color::White);
                 
                 window.draw(rectangle);
-            
+            }
+        }
+    }
+
+    sf::Color wallColor = sf::Color::Black;
+    // Now draw the walls
+    for (int i = 0; i < cells.size(); i++)
+    {
+        for (int n = 0; n < cells[i].size(); n++)
+        {
+            std::shared_ptr<Cell> cell = cells[i][n];
+            int y = i * vstep;
+            int x = n * hstep;
+
+            if (cell->wasAlreadyVisited())
+            {
+                // The right/bottom wall drawing was removed because almost each right/bottom wall was
+                // the top/left wall of another.
                 if (cell->getWall(Wall::LEFT))
                 {
-                    sf::Vertex points[]
+                    if (padding > 0)
                     {
-                        sf::Vertex(sf::Vector2f(x, y), sf::Color::Black),
-                        sf::Vertex(sf::Vector2f(x, y + vstep), sf::Color::Black)
-                    };
-                    window.draw(points, 2, sf::Lines);
-                }
-
-                if (cell->getWall(Wall::RIGHT))
-                {
-                    sf::Vertex points[]
+                        // Add padding to height to join top-left corners
+                        sf::RectangleShape border(sf::Vector2f(padding, vstep + padding));
+                        border.setPosition(x, y);
+                        border.setFillColor(wallColor);
+                        window.draw(border);
+                    }
+                    else
                     {
-                        sf::Vertex(sf::Vector2f(x + hstep, y), sf::Color::Black),
-                        sf::Vertex(sf::Vector2f(x + hstep, y + vstep), sf::Color::Black)
-                    };
-                    window.draw(points, 2, sf::Lines);
+                        sf::Vertex points[]
+                        {
+                            sf::Vertex(sf::Vector2f(x, y), wallColor),
+                            sf::Vertex(sf::Vector2f(x, y + vstep), wallColor)
+                        };
+                        window.draw(points, 2, sf::Lines);
+                    }
                 }
 
                 if (cell->getWall(Wall::UP))
                 {
-                    sf::Vertex points[]
+                    if (padding > 0)
                     {
-                        sf::Vertex(sf::Vector2f(x, y), sf::Color::Black),
-                        sf::Vertex(sf::Vector2f(x + hstep, y), sf::Color::Black)
-                    };
-                    window.draw(points, 2, sf::Lines);
-                }
-
-                if (cell->getWall(Wall::DOWN))
-                {
-                    sf::Vertex points[]
+                        // Add padding to width to join top-left corners
+                        sf::RectangleShape border(sf::Vector2f(hstep + padding, padding));
+                        border.setPosition(x, y);
+                        border.setFillColor(wallColor);
+                        window.draw(border);
+                    }
+                    else
                     {
-                        sf::Vertex(sf::Vector2f(x, y + vstep), sf::Color::Black),
-                        sf::Vertex(sf::Vector2f(x + hstep, y + vstep), sf::Color::Black)
-                    };
-                    window.draw(points, 2, sf::Lines);
+                        sf::Vertex points[]
+                        {
+                            sf::Vertex(sf::Vector2f(x, y), wallColor),
+                            sf::Vertex(sf::Vector2f(x + hstep, y), wallColor)
+                        };
+                        window.draw(points, 2, sf::Lines);
+                    }
                 }
             }
         }
+    }
+
+    if (padding > 0)
+    {
+        sf::RectangleShape rightBorder(sf::Vector2f(padding, size.y));
+        rightBorder.setPosition(size.x - padding, 0);        
+        rightBorder.setFillColor(wallColor);
+
+        sf::RectangleShape bottomBorder(sf::Vector2f(size.x, padding));
+        bottomBorder.setPosition(0, size.y - padding);        
+        bottomBorder.setFillColor(wallColor);
+
+        window.draw(rightBorder);
+        window.draw(bottomBorder);
     }
 
     window.display();
