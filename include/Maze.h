@@ -24,7 +24,7 @@ private:
     int width;
     int height;
     unsigned int seed;
-    int visitedCells;
+    int visitedCells = 0;
     std::vector<std::vector<std::shared_ptr<Cell>>> cells;
 };
 
