@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Canvas.h"
+#include "algorithms/Algorithm.h"
 #include "Maze.h"
 #include "Cell.h"
 
@@ -10,20 +11,20 @@ Canvas::Canvas(int width, int height, Maze& maze, int padding, bool animate, uns
 {
     window.setFramerateLimit(fps);
 
-    window.setTitle("Maze - Seed: " + std::to_string(maze.getSeed()));
+    window.setTitle("Maze - Seed: " + std::to_string(maze.getAlgorithm()->getSeed()));
 }
 
 void Canvas::start()
 {
     if (!animate)
     {
-        maze.calculate(nullptr);    
+        maze.init(nullptr);    
     }
     else
     {
         // There's probably a better way to do this... hmmm
         // TODO: use threads (maybe?) to separate algorithm from drawing
-        maze.calculate([this]()
+        maze.init([this]()
         {
             if (window.isOpen())
             {
@@ -47,7 +48,7 @@ void Canvas::update()
         // total cells multiplied by 2 to consider both visited cells and surrounded cells 
         // so as not to "stuck" the percentage
         int percentage = (int)(maze.getVisitedCells() * 100.f / ((maze.getWidth() * maze.getHeight()) * 2));
-        std::string title = "Maze - Seed: " + std::to_string(maze.getSeed()) + 
+        std::string title = "Maze - Seed: " + std::to_string(maze.getAlgorithm()->getSeed()) + 
             " - " + std::to_string(percentage) + "%"; 
         window.setTitle(title);
     }

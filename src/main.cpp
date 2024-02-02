@@ -3,6 +3,8 @@
 #include <cstdio>
 #include "Canvas.h"
 #include "Util.h"
+#include "algorithms/Algorithm.h"
+#include "algorithms/RecursiveBacktracker.h"
 
 int columns = 50;
 int rows = 50;
@@ -54,7 +56,12 @@ int main(int argc, char* argv[])
     printf("seed: %ld\n", seed);
     printf("\nGenerating...\n");
 
-    Maze maze(columns, rows, seed);
+    Maze maze(columns, rows);
+
+    Algorithm* algorithm = new RecursiveBacktracker(maze, seed);
+
+    maze.setAlgorithm(std::shared_ptr<Algorithm>(algorithm));
+
     // Add padding to width/height for the bottom/right border
     Canvas canvas(width + padding, height + padding, maze, padding, animate, fps);
 

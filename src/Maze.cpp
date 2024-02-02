@@ -1,6 +1,7 @@
 #include "Maze.h"
+#include "algorithms/Algorithm.h"
 #include "Util.h"
-Maze::Maze(int width, int height, unsigned int seed) : width(width), height(height), seed(seed)
+Maze::Maze(int width, int height) : width(width), height(height)
 {
     for (int i = 0; i < height; i++)
     {
@@ -14,66 +15,24 @@ Maze::Maze(int width, int height, unsigned int seed) : width(width), height(heig
     }
 }
 
+void Maze::setAlgorithm(std::shared_ptr<Algorithm> algorithm)
+{
+    this->algorithm = algorithm;
+}
+
 std::vector<std::vector<std::shared_ptr<Cell>>>& Maze::getCells()
 {
     return cells;
 }
 
-void Maze::calculate(std::function<void()> callback)
+void Maze::init(std::function<void()> callback)
 {
-    // I suspect that some SFML component (for some reason) modifies 
-    // the seed during its init (must check it)
-    // So better set the seed just before starting the algorithm
-    srand(seed);
-
-    int first = random(0, width - 1);
-    // The maze will start at the top
-    recursiveBacktracker(0, first, callback);
+    algorithm->init(callback);
 }
 
-void Maze::recursiveBacktracker(int y, int x, std::function<void()> callback)
+void Maze::calculate(int y, int x, std::function<void()> callback)
 {
-    std::shared_ptr<Cell> cell = cells[y][x];
-    
-    cell->setVisited();
-    visitedCells++;
-    if (callback != nullptr)
-    {
-        callback();
-    }
-    
-    std::vector<int> neighbors; 
-    while ((neighbors = getUnvisitedNeighbors(y, x)).size() > 0)
-    {
-        int neighbor = randomInRange(neighbors);
-        
-        setWall(y, x, neighbor, false);
-
-        switch (neighbor)
-        {
-            case Wall::LEFT:
-                recursiveBacktracker(y, x - 1, callback);
-                break;
-            case Wall::RIGHT:
-                recursiveBacktracker(y, x + 1, callback);
-                break;
-            case Wall::UP:
-                recursiveBacktracker(y - 1, x, callback);
-                break;
-            case Wall::DOWN:
-                recursiveBacktracker(y + 1, x, callback);
-                break;
-        }
-    }
-    cell->setSurrounded();
-
-    // All this has to be executed twice, when visited and when surrounded
-    // to visualize the backtracking and update properly the percentage
-    visitedCells++;
-    if (callback != nullptr)
-    {
-        callback();
-    }
+    algorithm->calculate(y, x, callback);
 }
 
 void Maze::setWall(int y, int x, int wall, bool set)
@@ -109,6 +68,11 @@ void Maze::setWall(int y, int x, int wall, bool set)
     }
 }
 
+void Maze::increaseVisitedCells()
+{
+    visitedCells++;
+}
+
 int Maze::getWidth()
 {
     return width;
@@ -119,14 +83,14 @@ int Maze::getHeight()
     return height;
 }
 
-int Maze::getSeed()
-{
-    return seed;
-}
-
 int Maze::getVisitedCells()
 {
     return visitedCells;
+}
+
+std::shared_ptr<Algorithm> Maze::getAlgorithm()
+{
+    return algorithm;
 }
 
 std::vector<int> Maze::getUnvisitedNeighbors(int y, int x)

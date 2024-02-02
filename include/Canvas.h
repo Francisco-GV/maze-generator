@@ -16,7 +16,7 @@ private:
     bool animate;
     int padding;
     sf::RenderWindow window;
-    Maze maze;
+    Maze& maze;
 };
 
 #endif // !CANVAS_H
