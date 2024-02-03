@@ -8,7 +8,7 @@ Maze::Maze(int width, int height) : width(width), height(height)
         std::vector<std::shared_ptr<Cell>> row;
         for (int n = 0; n < width; n++)
         {
-            row.push_back(std::make_shared<Cell>());
+            row.push_back(std::make_shared<Cell>(i, n));
         }
 
         cells.push_back(row);

@@ -1,6 +1,6 @@
 #include "Cell.h"
 
-Cell::Cell()
+Cell::Cell(int y, int x) : y(y), x(x)
 {
     visited = false;
     for (int i = 0; i < 4; i++)
@@ -37,4 +37,14 @@ bool Cell::isSurrounded()
 bool Cell::getWall(int index)
 {
     return walls[index];
+}
+
+int Cell::getX()
+{
+    return x;
+}
+
+int Cell::getY()
+{
+    return y;
 }
