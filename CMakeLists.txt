@@ -5,7 +5,9 @@ project(
   LANGUAGES CXX)
 
 set(SOURCES src/main.cpp src/Canvas.cpp src/Cell.cpp src/Maze.cpp src/Util.cpp 
-    src/algorithms/Algorithm.cpp src/algorithms/RecursiveBacktracker.cpp)
+    src/algorithms/Algorithm.cpp 
+    src/algorithms/RecursiveBacktracker.cpp
+    src/algorithms/IterativeBacktracker.cpp)
 
 add_executable(maze-generator ${SOURCES})
 target_include_directories(maze-generator
