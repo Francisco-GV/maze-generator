@@ -6,7 +6,7 @@
 class IterativeBacktracker : public Algorithm
 {
 public:
-    IterativeBacktracker(Maze& maze, unsigned int seed);
+    using Algorithm::Algorithm;
     void init(std::function<void()> callback = nullptr) override;
     void calculate(int y, int x, std::function<void()> callback = nullptr) override;
 };

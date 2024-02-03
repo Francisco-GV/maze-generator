@@ -1,8 +1,5 @@
 #include "algorithms/RecursiveBacktracker.h"
 
-RecursiveBacktracker::RecursiveBacktracker(Maze& maze, unsigned int seed) : Algorithm(maze, seed)
-{}
-
 void RecursiveBacktracker::init(std::function<void()> callback)
 {
     // I suspect that some SFML component (for some reason) modifies 

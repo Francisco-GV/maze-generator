@@ -2,9 +2,6 @@
 
 #include "algorithms/IterativeBacktracker.h"
 
-IterativeBacktracker::IterativeBacktracker(Maze& maze, unsigned int seed): Algorithm(maze, seed)
-{}
-
 void IterativeBacktracker::init(std::function<void()> callback)
 {
     srand(seed);
