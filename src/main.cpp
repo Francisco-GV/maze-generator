@@ -8,6 +8,7 @@
 #include "algorithms/Algorithm.h"
 #include "algorithms/IterativeBacktracker.h"
 #include "algorithms/RecursiveBacktracker.h"
+#include "algorithms/KruskalAlgorithm.h"
 
 int columns = 50;
 int rows = 50;
@@ -18,8 +19,8 @@ unsigned int seed = 0;
 bool animate = false;
 int fps = 20;
 
-std::array<std::string, 2> methods {
-    "IterativeBacktracker", "RecursiveBacktracker"
+std::array<std::string, 3> methods {
+    "IterativeBacktracker", "RecursiveBacktracker", "KruskalAlgorithm"
 };
 std::string method = methods[0];
 
@@ -105,6 +106,10 @@ int main(int argc, char* argv[])
     else if (method == "RecursiveBacktracker")
     {
         algorithm = new RecursiveBacktracker(maze, seed);
+    }
+    else if (method == "KruskalAlgorithm")
+    {
+        algorithm = new KruskalAlgorithm(maze, seed);
     }
 
     maze.setAlgorithm(std::shared_ptr<Algorithm>(algorithm));
