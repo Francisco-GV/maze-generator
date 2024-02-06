@@ -13,6 +13,7 @@ public:
     virtual void calculate(int y, int x, std::function<void()> callback = nullptr) = 0;
 
     unsigned int getSeed();
+    virtual float calculatePercentage();
 protected:
     Maze& maze;
     unsigned int seed;

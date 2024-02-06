@@ -56,3 +56,10 @@ void RecursiveBacktracker::calculate(int y, int x, std::function<void()> callbac
         callback();
     }
 }
+
+float RecursiveBacktracker::calculatePercentage()
+{
+    // total cells multiplied by 2 to consider both visited cells and surrounded cells 
+    // so as not to "stuck" the percentage
+    return maze.getVisitedCells() * 100.f / ((maze.getWidth() * maze.getHeight()) * 2);
+}

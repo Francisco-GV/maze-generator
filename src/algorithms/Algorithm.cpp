@@ -7,3 +7,8 @@ unsigned int Algorithm::getSeed()
 {
     return seed;
 }
+
+float Algorithm::calculatePercentage()
+{
+    return 0;
+}

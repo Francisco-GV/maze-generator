@@ -45,10 +45,10 @@ void Canvas::update()
 {
     if (animate)
     {
-        // total cells multiplied by 2 to consider both visited cells and surrounded cells 
-        // so as not to "stuck" the percentage
-        int percentage = (int)(maze.getVisitedCells() * 100.f / ((maze.getWidth() * maze.getHeight()) * 2));
-        std::string title = "Maze - Seed: " + std::to_string(maze.getAlgorithm()->getSeed()) + 
+        int percentage = maze.getAlgorithm()->calculatePercentage();
+        int seed = maze.getAlgorithm()->getSeed();
+
+        std::string title = "Maze - Seed: " + std::to_string(seed) + 
             " - " + std::to_string(percentage) + "%"; 
         window.setTitle(title);
     }
