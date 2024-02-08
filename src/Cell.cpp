@@ -24,9 +24,9 @@ bool Cell::wasAlreadyVisited()
     return visited;
 }
 
-void Cell::setSurrounded()
+void Cell::setSurrounded(bool surrounded)
 {
-    surrounded = true;
+    this->surrounded = surrounded;
 }
 
 bool Cell::isSurrounded()

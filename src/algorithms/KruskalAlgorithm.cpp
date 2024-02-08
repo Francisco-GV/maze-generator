@@ -53,6 +53,7 @@ void KruskalAlgorithm::calculate(int y, int x, std::function<void()> callback)
         walls.erase(walls.begin() + i);
 
         cells[edge.y][edge.x]->setVisited();
+        cells[edge.y][edge.x]->setSurrounded();
         if (callback != nullptr) {
             callback();
         }
@@ -61,6 +62,7 @@ void KruskalAlgorithm::calculate(int y, int x, std::function<void()> callback)
         int dy = edge.wall == Wall::UP ? -1 : 0;
 
         cells[edge.y + dy][edge.x + dx]->setVisited();
+        cells[edge.y + dy][edge.x + dx]->setSurrounded();
         if (callback != nullptr)
         {
             callback();
@@ -91,6 +93,8 @@ void KruskalAlgorithm::calculate(int y, int x, std::function<void()> callback)
                 callback();
             }
         }
+        cells[edge.y][edge.x]->setSurrounded(false);
+        cells[edge.y + dy][edge.x + dx]->setSurrounded(false);
     }
 }
 

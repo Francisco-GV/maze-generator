@@ -7,7 +7,7 @@ public:
     Cell(int y, int x);
     void setWall(int index, bool visible);
     void setVisited();
-    void setSurrounded();
+    void setSurrounded(bool surrounded = true);
     bool wasAlreadyVisited();
     bool isSurrounded();
     bool getWall(int index);
