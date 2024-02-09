@@ -9,7 +9,7 @@ class Algorithm
 {
 public:
     Algorithm(Maze& maze, unsigned int seed);
-    virtual void init(std::function<void()> callback = nullptr) = 0;
+    virtual void start(std::function<void()> callback = nullptr) = 0;
     virtual void calculate(int y, int x, std::function<void()> callback = nullptr) = 0;
 
     unsigned int getSeed();

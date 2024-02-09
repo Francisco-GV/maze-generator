@@ -25,14 +25,9 @@ std::vector<std::vector<std::shared_ptr<Cell>>>& Maze::getCells()
     return cells;
 }
 
-void Maze::init(std::function<void()> callback)
+void Maze::start(std::function<void()> callback)
 {
-    algorithm->init(callback);
-}
-
-void Maze::calculate(int y, int x, std::function<void()> callback)
-{
-    algorithm->calculate(y, x, callback);
+    algorithm->start(callback);
 }
 
 void Maze::setWall(int y, int x, int wall, bool set)

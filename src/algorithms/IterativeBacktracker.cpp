@@ -2,7 +2,7 @@
 
 #include "algorithms/IterativeBacktracker.h"
 
-void IterativeBacktracker::init(std::function<void()> callback)
+void IterativeBacktracker::start(std::function<void()> callback)
 {
     srand(seed);
 

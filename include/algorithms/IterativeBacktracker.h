@@ -7,7 +7,7 @@ class IterativeBacktracker : public Algorithm
 {
 public:
     using Algorithm::Algorithm;
-    void init(std::function<void()> callback = nullptr) override;
+    void start(std::function<void()> callback = nullptr) override;
     void calculate(int y, int x, std::function<void()> callback = nullptr) override;
     float calculatePercentage() override;
 };

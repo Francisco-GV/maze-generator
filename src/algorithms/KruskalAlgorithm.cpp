@@ -5,7 +5,7 @@
 Edge::Edge(int y, int x, int wall): x(x), y(y), wall(wall)
 {}
 
-void KruskalAlgorithm::init(std::function<void()> callback)
+void KruskalAlgorithm::start(std::function<void()> callback)
 {
     for (int y = 0; y < maze.getHeight(); y++)
     {

@@ -18,13 +18,13 @@ void Canvas::start()
 {
     if (!animate)
     {
-        maze.init(nullptr);    
+        maze.start(nullptr);    
     }
     else
     {
         // There's probably a better way to do this... hmmm
         // TODO: use threads (maybe?) to separate algorithm from drawing
-        maze.init([this]()
+        maze.start([this]()
         {
             if (window.isOpen())
             {

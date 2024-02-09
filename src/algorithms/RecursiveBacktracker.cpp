@@ -1,6 +1,6 @@
 #include "algorithms/RecursiveBacktracker.h"
 
-void RecursiveBacktracker::init(std::function<void()> callback)
+void RecursiveBacktracker::start(std::function<void()> callback)
 {
     // I suspect that some SFML component (for some reason) modifies 
     // the seed during its init (must check it)

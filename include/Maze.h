@@ -11,7 +11,7 @@ class Maze
 {
 public:
     Maze(int width, int height);
-    void init(std::function<void()> callback);
+    void start(std::function<void()> callback);
     std::vector<std::vector<std::shared_ptr<Cell>>>& getCells();
     std::vector<int> getUnvisitedNeighbors(int y, int x);
 
@@ -25,7 +25,6 @@ public:
     int getVisitedCells();
     std::shared_ptr<Algorithm> getAlgorithm();
 private:
-    void calculate(int y, int x, std::function<void()> callback);
     int width;
     int height;
     int visitedCells = 0;
