@@ -12,8 +12,6 @@ void IterativeBacktracker::start(std::function<void()> callback)
 
 void IterativeBacktracker::calculate(int y, int x, std::function<void()> callback)
 {
-    std::stack<std::shared_ptr<Cell>> stack;
-    
     std::shared_ptr<Cell> initialCell = maze.getCells()[y][x];
 
     initialCell->setVisited();
