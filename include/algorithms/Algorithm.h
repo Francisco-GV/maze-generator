@@ -2,8 +2,9 @@
 #define ALGORITHM_H
 
 #include <functional>
+
 #include "../Maze.h"
-#include "../Util.h"
+#include "../util/Random.h"
 
 class Algorithm
 {
@@ -16,6 +17,7 @@ public:
     virtual float calculatePercentage();
 protected:
     Maze& maze;
+    Random random;
     unsigned int seed;
 };
 

@@ -2,12 +2,9 @@
 
 void RecursiveBacktracker::start(std::function<void()> callback)
 {
-    // I suspect that some SFML component (for some reason) modifies 
-    // the seed during its init (must check it)
-    // So better set the seed just before starting the algorithm
-    srand(seed);
+    random.setSeed(seed);
 
-    int first = random(0, maze.getWidth() - 1);
+    int first = random.getInRange(0, maze.getWidth() - 1);
     // The maze will start at the top
     calculate(0, first, callback);
 }
@@ -26,7 +23,7 @@ void RecursiveBacktracker::calculate(int y, int x, std::function<void()> callbac
     std::vector<int> neighbors; 
     while ((neighbors = maze.getUnvisitedNeighbors(y, x)).size() > 0)
     {
-        int neighbor = randomInRange(neighbors);
+        int neighbor = random.getInVector(neighbors);
         
         maze.setWall(y, x, neighbor, false);
 

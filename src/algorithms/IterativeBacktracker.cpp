@@ -4,9 +4,9 @@
 
 void IterativeBacktracker::start(std::function<void()> callback)
 {
-    srand(seed);
+    random.setSeed(seed);
 
-    int first = random(0, maze.getWidth() - 1);
+    int first = random.getInRange(0, maze.getWidth() - 1);
     calculate(0, first, callback);
 }
 
@@ -34,7 +34,7 @@ void IterativeBacktracker::calculate(int y, int x, std::function<void()> callbac
         {
             stack.push(currentCell);
 
-            int neighbor = randomInRange(neighbors);
+            int neighbor = random.getInVector(neighbors);
             maze.setWall(currentY, currentX, neighbor, false);
 
             switch (neighbor)

@@ -1,6 +1,8 @@
-#include "algorithms/KruskalAlgorithm.h"
 #include <vector>
 #include <set>
+
+#include "algorithms/KruskalAlgorithm.h"
+#include "Util.h"
 
 Edge::Edge(int y, int x, int wall): x(x), y(y), wall(wall)
 {}
@@ -39,7 +41,7 @@ void KruskalAlgorithm::start(std::function<void()> callback)
         sets.push_back(row);
     }
 
-    srand(seed);
+    random.setSeed(seed);
     calculate(-1, -1, callback);
 }
 
@@ -48,7 +50,7 @@ void KruskalAlgorithm::calculate(int y, int x, std::function<void()> callback)
     std::vector<std::vector<std::shared_ptr<Cell>>>& cells = maze.getCells();
     while (!walls.empty())
     {
-        int i = random(0, walls.size() - 1);
+        int i = random.getInRange(0, walls.size() - 1);
         Edge edge = walls[i];
         walls.erase(walls.begin() + i);
 
