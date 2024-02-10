@@ -9,10 +9,12 @@ public:
     void setSeed(long seed);
     int getInRange(int lower, int upper);
     int getInVector(std::vector<int>& values);
+    int get();
 
-    std::mt19937 getGenerator();
+    std::mt19937& getGenerator();
 private:
     std::mt19937 generator;
+    std::uniform_int_distribution<int> distribution;
 };
 
 #endif
