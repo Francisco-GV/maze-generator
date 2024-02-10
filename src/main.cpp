@@ -6,12 +6,12 @@
 #include <string>
 #include <iostream>
 
-#include "Canvas.h"
-#include "Util.h"
 #include "algorithms/Algorithm.h"
 #include "algorithms/IterativeBacktracker.h"
 #include "algorithms/RecursiveBacktracker.h"
 #include "algorithms/KruskalAlgorithm.h"
+#include "util/Util.h"
+#include "Canvas.h"
 
 int columns = 50;
 int rows = 50;

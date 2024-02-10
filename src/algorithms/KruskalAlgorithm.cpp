@@ -2,7 +2,7 @@
 #include <set>
 
 #include "algorithms/KruskalAlgorithm.h"
-#include "Util.h"
+#include "util/Util.h"
 
 Edge::Edge(int y, int x, int wall): x(x), y(y), wall(wall)
 {}

@@ -1,6 +1,6 @@
-#include "Maze.h"
 #include "algorithms/Algorithm.h"
-#include "Util.h"
+#include "Maze.h"
+
 Maze::Maze(int width, int height) : width(width), height(height)
 {
     for (int i = 0; i < height; i++)

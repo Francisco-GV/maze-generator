@@ -4,7 +4,8 @@ project(
   VERSION 1.1.0
   LANGUAGES CXX)
 
-set(SOURCES src/main.cpp src/Canvas.cpp src/Cell.cpp src/Maze.cpp src/Util.cpp
+set(SOURCES src/main.cpp src/Canvas.cpp src/Cell.cpp src/Maze.cpp
+    src/util/Util.cpp
     src/util/Random.cpp
     src/algorithms/Algorithm.cpp 
     src/algorithms/RecursiveBacktracker.cpp
