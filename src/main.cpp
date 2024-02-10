@@ -1,8 +1,11 @@
+// TODO: replace args parser with a platform-independent one
 #include <unistd.h>
-#include <cstdlib>
-#include <cstdio>
+
+#include <chrono>
 #include <array>
 #include <string>
+#include <iostream>
+
 #include "Canvas.h"
 #include "Util.h"
 #include "algorithms/Algorithm.h"
@@ -15,7 +18,7 @@ int rows = 50;
 int width = 500;
 int height = 500;
 int padding = 0;
-unsigned int seed = 0;
+long seed = 0;
 bool animate = false;
 int fps = 20;
 
@@ -64,7 +67,7 @@ void getArgs(int argc, char* argv[])
 
                     if (!found)
                     {
-                        printf("Unknown method \"%s\", using %s\n", args.data(), method.data());
+                        std::cout << "Unknown method \"" << args << "\"" << ", using " << method << "\n";
                     }
                 }
             }
@@ -86,15 +89,15 @@ int main(int argc, char* argv[])
 
     if (seed == 0)
     {
-        // Potential data loss doesn't matter
-        seed = (unsigned int) time(NULL);
+        std::chrono::duration duration = std::chrono::system_clock::now().time_since_epoch();
+        seed = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
     }
-
-    printf("==== Maze Generator ====\n");
-    printf("size: %dx%d\n", columns, rows);
-    printf("window size: %dx%d\n", width, height);
-    printf("Algorithm: %s\n", method.data());
-    printf("seed: %ld\n", seed);
+    
+    std::cout << "==== Maze Generator ====\n" <<
+        "Size: "         << columns << "x" << rows << "\n" <<
+        "Windows size: " << width << "x" << height << "\n" <<
+        "Algorithm: "    << method                 << "\n" <<
+        "Seed: "         << seed                   << "\n";
 
     Maze maze(columns, rows);
 
@@ -117,7 +120,7 @@ int main(int argc, char* argv[])
     // Add padding to width/height for the bottom/right border
     Canvas canvas(width + padding, height + padding, maze, padding, animate, fps);
 
-    printf("\nGenerating...\n");
+    std::cout << "\nGenerating...\n";
     canvas.start();
     return 0;
 }
