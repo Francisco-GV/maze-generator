@@ -1,15 +1,27 @@
 # maze-generator
-Maze Generator in C++
+Generate a random maze using multiple algorithms.<br>
+Programmed in **C++** and **SFML** library.
 
-![maze](https://github.com/Francisco-GV/maze-generator/assets/54688495/cdfee131-c587-40cc-911b-3ef3396f134a)
+<img src="https://github.com/Francisco-GV/maze-generator/assets/54688495/6b83af93-37d9-4db2-8b62-ee455da786f6" alt="maze" width=300px>
 
-The program generates a random maze using a recursive backtracking algorithm, implemented in C++ using the SFML library.
+## Algorithms
++ **Backtracker Algorithm** (depth-first search)<br>
+    + Method name: `IterativeBacktracker` 
+    <br><img src="https://github.com/Francisco-GV/maze-generator/assets/54688495/0bbf8e93-a323-4097-9161-f9299e49b271" alt="maze animation" width="150px">
++ **Kruskal's Algorithm**
+    + Method name: `KruskalAlgorithm`
+    <br><img src="https://github.com/Francisco-GV/maze-generator/assets/54688495/aa8e75ab-0f4a-4de6-815c-8ec44e986e68" alt="maze animation" width="150px">
+#### Aditional
++ **Recursive implementation of Backtracker Algorithm**
+    + Method name: `RecursiveBacktracker`
 
 ## (Optional) Command Line Arguments
-+ `-s`: Set random generator seed (default = 0)\*
-+ `-a`: Animate the algorithm, showing visited cells and backtracked cells
-+ `-c`: Set columns (horizontal cells) that the maze will have (default = 50)
-+ `-r`: Set rows (vertical cells) that the maze will have (default = 50)
++ `-s`: Set seed (default = 0) \*
++ `-m`: Set algorithm (see [#Algorithms](#algorithms)) (default = "IterativeBacktracker")
++ `-a`: Animate algorithm
++ `-p`: Set walls padding (thickness) (default = 0)
++ `-c`: Set columns (horizontal cells) (default = 50)
++ `-r`: Set rows (vertical cells) (default = 50)
 + `-w`: Set window width (default = 500) \*\*
 + `-h`: Set window height (default = 500) \*\*
 + `-f`: Set window framerate (default = 20) \*\*\*
@@ -19,8 +31,6 @@ The program generates a random maze using a recursive backtracking algorithm, im
 <sub>[\*\*]: The cells size only use integer values, so preferably use multiples of columns/rows (respectively) to fit in the window</sub>
 <br>
 <sub>[\*\*\*]: If animating, each frame the algorithm will perform one step, so higher values will run the animation faster</sub>
-
-![maze animation](https://github.com/Francisco-GV/maze-generator/assets/54688495/0ac1fdf7-eb19-40f6-9367-f698ce442f98)
 
 ## Installation
 
