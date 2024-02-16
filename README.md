@@ -11,6 +11,9 @@ Programmed in **C++** and **SFML** library.
 + **Kruskal's Algorithm**
     + Method name: `KruskalAlgorithm`
     <br><img src="https://github.com/Francisco-GV/maze-generator/assets/54688495/aa8e75ab-0f4a-4de6-815c-8ec44e986e68" alt="maze animation" width="150px">
++ **Prim's Algorithm**
+    + Method name: `PrimAlgorithm`
+    <br><img src="https://github.com/Francisco-GV/maze-generator/assets/54688495/287924e6-059e-4fb5-a71d-38bf661f9d3c" alt="maze animation" width="150px">
 #### Aditional
 + **Recursive implementation of Backtracker Algorithm**
     + Method name: `RecursiveBacktracker`

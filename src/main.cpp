@@ -10,6 +10,7 @@
 #include "algorithms/IterativeBacktracker.h"
 #include "algorithms/RecursiveBacktracker.h"
 #include "algorithms/KruskalAlgorithm.h"
+#include "algorithms/PrimAlgorithm.h"
 #include "util/Util.h"
 #include "Canvas.h"
 
@@ -22,8 +23,8 @@ long seed = 0;
 bool animate = false;
 int fps = 20;
 
-std::array<std::string, 3> methods {
-    "IterativeBacktracker", "RecursiveBacktracker", "KruskalAlgorithm"
+std::array<std::string, 4> methods {
+    "IterativeBacktracker", "RecursiveBacktracker", "KruskalAlgorithm", "PrimAlgorithm"
 };
 std::string method = methods[0];
 
@@ -113,6 +114,10 @@ int main(int argc, char* argv[])
     else if (method == "KruskalAlgorithm")
     {
         algorithm = new KruskalAlgorithm(maze, seed);
+    }
+    else if (method == "PrimAlgorithm")
+    {
+        algorithm = new PrimAlgorithm(maze, seed);
     }
 
     maze.setAlgorithm(std::shared_ptr<Algorithm>(algorithm));
