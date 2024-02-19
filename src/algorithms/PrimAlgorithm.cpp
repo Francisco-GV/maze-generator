@@ -2,7 +2,7 @@
 
 #include "algorithms/PrimAlgorithm.h"
 
-NodeEdge::NodeEdge(int y, int x, int wall, int weight): y(y), x(x), 
+PrimAlgorithm::Edge::Edge(int y, int x, int wall, int weight): y(y), x(x), 
     wall(wall), weight(weight)
 {
 }
@@ -13,28 +13,28 @@ void PrimAlgorithm::start(std::function<void()> callback)
 
     for (int y = 0; y < maze.getHeight(); y++)
     {
-        std::vector<GraphNode> row;
+        std::vector<Graph> row;
         for (int x = 0; x < maze.getWidth(); x++)
         {
-            GraphNode node;
+            Graph node;
             if (x > 0)
             {
-                node.edges.push_back(std::make_shared<NodeEdge>(y, x, Wall::LEFT, random.get()));
+                node.edges.push_back(std::make_shared<Edge>(y, x, Wall::LEFT, random.get()));
             }
 
             if (x < maze.getWidth() - 1)
             {
-                node.edges.push_back(std::make_shared<NodeEdge>(y, x, Wall::RIGHT, random.get()));
+                node.edges.push_back(std::make_shared<Edge>(y, x, Wall::RIGHT, random.get()));
             }
 
             if (y > 0)
             {
-                node.edges.push_back(std::make_shared<NodeEdge>(y, x, Wall::UP, random.get()));
+                node.edges.push_back(std::make_shared<Edge>(y, x, Wall::UP, random.get()));
             }
 
             if (y < maze.getHeight() - 1)
             {
-                node.edges.push_back(std::make_shared<NodeEdge>(y, x, Wall::DOWN, random.get()));
+                node.edges.push_back(std::make_shared<Edge>(y, x, Wall::DOWN, random.get()));
             }
 
             row.push_back(node);
@@ -65,7 +65,7 @@ void PrimAlgorithm::calculate(int y, int x, std::function<void()> callback) {
 
     while (!edges.empty())
     {
-        Pair<std::shared_ptr<NodeEdge>, int> minEdge = getMinEdge(); 
+        Pair<std::shared_ptr<Edge>, int> minEdge = getMinEdge(); 
 
         y = minEdge.a->y;
         x = minEdge.a->x;
@@ -105,10 +105,10 @@ float PrimAlgorithm::calculatePercentage()
     return maze.getVisitedCells() * 100.f / ((maze.getWidth() * maze.getHeight()));
 }
 
-Pair<std::shared_ptr<NodeEdge>, int> PrimAlgorithm::getMinEdge()
+PrimAlgorithm::Pair<std::shared_ptr<PrimAlgorithm::Edge>, int> PrimAlgorithm::getMinEdge()
 {
     int minWeight = std::numeric_limits<int>::max();
-    std::shared_ptr<NodeEdge> minEdge;
+    std::shared_ptr<Edge> minEdge;
     int index = -1;
 
     for (int i = 0; i < edges.size(); i++)

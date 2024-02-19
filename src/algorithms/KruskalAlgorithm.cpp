@@ -5,14 +5,14 @@
 #include "algorithms/KruskalAlgorithm.h"
 #include "util/Util.h"
 
-Edge::Edge(int y, int x, int wall, int weight): x(x), y(y), 
+KruskalAlgorithm::Edge::Edge(int y, int x, int wall, int weight): x(x), y(y), 
     wall(wall), weight(weight)
 {}
 
-Node::Node(int parent, int rank): parent(parent), rank(rank)
+KruskalAlgorithm::Node::Node(int parent, int rank): parent(parent), rank(rank)
 {}
 
-DisjointSet::DisjointSet(int height, int width) : width(width)
+KruskalAlgorithm::DisjointSet::DisjointSet(int height, int width) : width(width)
 {
     for (int y = 0; y < height; y++)
     {
@@ -25,7 +25,7 @@ DisjointSet::DisjointSet(int height, int width) : width(width)
     }    
 }
 
-int DisjointSet::find(int node)
+int KruskalAlgorithm::DisjointSet::find(int node)
 {
     if (nodes[node].parent != node)
     {
@@ -37,12 +37,12 @@ int DisjointSet::find(int node)
     return node;
 }
 
-int DisjointSet::find(int nodeY, int nodeX)
+int KruskalAlgorithm::DisjointSet::find(int nodeY, int nodeX)
 {
     return find(nodeY * width + nodeX);
 }
 
-void DisjointSet::setUnion(int n1, int n2)
+void KruskalAlgorithm::DisjointSet::setUnion(int n1, int n2)
 {
     // This may be unnecessary because where the function is called, this
     // has already been done, but I want to keep the function "independent" 
